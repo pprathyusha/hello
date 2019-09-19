@@ -1,0 +1,390 @@
+#!/usr/bin/env python
+
+from ats import aetest
+from ats.topology import loader
+import os, sys, re, time
+from datetime import datetime as dt
+
+import logging
+from projects.wireless.lib.config_manager.config_manager import ConfigManager
+from pprint import pprint as pp
+from ats.topology import loader
+from pprint import pprint
+import projects.wireless.lib.config_generator.conf_gen as CG
+from projects.wireless.lib.utils.sniffer_utils import *
+from projects.wireless.lib import *
+from projects.wireless.lib.debug import *
+from projects.wireless.lib.aireos import *
+#from projects.csccon.services.exceptions import LinuxCommandError
+
+# create a logger for this module
+logger = logging.getLogger(__name__)
+
+# testbed = loader.load('/pyats_joseph/projects/wireless/scripts/ewlc/ewlc_mbo/eWLC_MBO_TB_file.yaml')
+# -----------------------------------------------------------------------------
+# Declare script parameters (mandatory, optional)
+# -----------------------------------------------------------------------------
+# Declare mandatory parameters (Use Tuple)
+mandatory_parameters = ['ctrl_alias','ap1_alias','wireless_client_alias','switch_alias','config_yaml','tftp_server_alias','sniffer_alias']
+# Declare+Initialize all optional parameters here (Use Dictionary)
+parameters = {
+    'skip_router_check' : True,
+}
+
+
+# -----------------------------------------------------------------------------
+# Common Setup
+# -----------------------------------------------------------------------------
+class CommonSetup(aetest.CommonSetup):
+    """Common Setup Section
+    Subsections:
+        1) init_script_arguments : validate/initialize script level params
+        2) connect_to_devices : connect to required devices
+        3) perform_pre_router_check : perform pre_router_check for devices
+    """
+    @aetest.subsection
+    def init_script_arguments(self, testbed, **param):
+        """This section will validate/initialize various script lever params
+        """
+
+        # Validate mandatory parameters, If not present abort the script
+        try:
+            for parameter in mandatory_parameters:
+                assert parameter in self.parameters,\
+                       "missing mandatory parameter '%s'" % parameter
+        except AssertionError as e:
+            logger.error(e)
+            self.aborted(e, goto=['cleanup'])
+
+        # Update test-script parameters with required script-variables
+        ref_pp = self.parent.parameters
+
+        # get config yaml
+        ref_pp['config_yaml'] = param['config_yaml']
+
+ # -- devices    
+        # -- CTRL1 Parameters       
+        
+        ref_pp['ctrl'] = testbed.devices[param['ctrl_alias']]
+        ref_pp['ctrl_vlan'] = ref_pp['ctrl'].custom['management']['vlan']
+        ref_pp['ctrl_mgmt_gateway'] = ref_pp['ctrl'].custom['management']['gtwy']
+        ref_pp['ctrl_mgmt_ip'] = ref_pp['ctrl'].custom['management']['ip']
+        
+        
+        # -- AP Parameters
+        ref_pp['ap1'] = testbed.devices[param['ap1_alias']]
+        ref_pp['ap1_infra_switch'] = ref_pp['ap1'].custom['uplink']['switch']
+        ref_pp['ap1_vlan'] = ref_pp['ap1'].custom['uplink']['vlan']
+        ref_pp['ap1_switchport'] = ref_pp['ap1'].custom['uplink']['switchport']
+        ref_pp['ap1_switch'] = testbed.devices[ref_pp['ap1_infra_switch']]
+        ref_pp['ap1_radio_1'] = ref_pp['ap1'].custom['11a_radio']
+        ref_pp['ap1_radio_0'] = ref_pp['ap1'].custom['11b_radio']
+        
+        
+        
+        # -- Wireless_client Parameters
+        ref_pp['wireless_client'] = testbed.devices[param['wireless_client_alias']]
+        ref_pp['wireless_client_ssc_location'] = ref_pp['wireless_client'].custom['script_location']
+        ref_pp['wireless_client_interface_name'] = ref_pp['wireless_client'].custom['interface_name']
+        ref_pp['wireless_client_mac'] = ref_pp['wireless_client'].custom['test_interface_mac']
+        ref_pp['wireless_client_mbo_path'] = ref_pp['wireless_client'].custom['mbo_path']
+        
+        
+        # -- Wireless_sniffer Parameters
+        ref_pp['wireless_sniffer'] = testbed.devices[param['sniffer_alias']]
+        ref_pp['wireless_sniffer_name'] = ref_pp['wireless_sniffer'].custom.name
+        ref_pp['wireless_sniffer_interface_name'] = ref_pp['wireless_sniffer'].custom['interface_name']
+        ref_pp['wireless_sniffer_pcap_file'] = ref_pp['wireless_sniffer'].custom.pcap_file
+        
+
+        # -- TFTP Server Parameters
+        ref_pp['tftp_server'] = testbed.servers[param['tftp_server_alias']]
+        ref_pp['tftp_server_ip'] = ref_pp['tftp_server'].custom['ip']
+        
+        #Config manager attributes
+        ref_pp['device_map']= {'CTRL1': self.parent.parameters['ctrl'].name,'AP1':self.parent.parameters['ap1'].name}
+        ref_pp['cm'] = ConfigManager(type=param['ctrl_type'],
+                                     config_filepath=param['config_yaml'],
+                                     testbed=testbed,
+                                     device_map_list=self.parent.parameters['device_map'])
+
+        ref_pp['ctrl_type'] = param['ctrl_type']
+        ref_pp['handler'] = get_wireless_step_handler(param['ctrl_type'], testbed, ref_pp['cm'])
+        ref_pp['config'] = ref_pp['cm'].get_config_dict()
+  
+    @aetest.subsection
+    def connect_to_devices(self, ctrl, ap1, ap1_switch, wireless_client, wireless_sniffer):
+        logger.info('****Connect to devices******')
+        """Connect to required devices
+        """
+        
+        try:
+            
+            logger.info('Connecting to controller {}'.format(ctrl.name))
+            ctrl.connect(connection_timeout=300)
+            logger.info('Connected to controller {}'.format(ctrl.name)) 
+            
+            logger.info('Connecting to AP1 {}'.format(ap1.name))
+            ap1.connect_ap()
+            logger.info('Connected to AP1 {}'.format(ap1.name)) 
+           
+            logger.info('Connecting to AP1 switch {}'.format(ap1_switch.name))
+            ap1_switch.connect()
+            logger.info('Connected to AP1 switch {}'.format(ap1_switch.name)) 
+           
+            logger.info('Connecting to wireless client {}'.format(wireless_client.name))
+            wireless_client.connect(connection_timeout=300)
+            logger.info('Connected to wireless client {}'.format(wireless_client.name))
+            
+            logger.info('Connecting to wireless sniffer {}'.format(wireless_sniffer.name))
+            wireless_sniffer.connect(connection_timeout=300)
+            logger.info('Connected to wireless sniffer {}'.format(wireless_sniffer.name))
+
+            
+        except Exception as e:
+            logger.error(e)
+            logger.debug('This is the debug I have done to check device-connect issues')
+            self.aborted(e, goto=['cleanup'])
+            
+# -------------------------#
+#        Test case - 1     #
+# -------------------------#
+
+@aetest.loop(uids=['MBO_enable_disable_WLAN_configuration_Local',                
+                   'MBO_enable_disable_WLAN_configuration_Flex'])
+
+class MBO_enable_disable_Local_Flex(aetest.Testcase):
+    """
+        Testcase       : 1,2
+        TIMS ID       :     Tnm7421331c, Tnm7421318c
+        LOGICAL_ID : MBO_enable_disable_WLAN_configuration_Local, MBO_enable_disable_WLAN_configuration_Flex
+        Description   : This test-case is to verify that MBO specific IE elements are seen in association response(OTA) on associating the MBO specific client with the MBO configured WPA2-PSK WLAN. It also ensures that the MBO IE elements are not seen in association response(OTA) on associating the MBO client with the MBO disabled WLAN. This is verified in eWLC with local and flex modes.
+    """
+
+    @aetest.setup
+    def do_setup(self, steps, ctrl, ap1, ap1_switch,  handler, **param):
+        
+        
+        logical_id = self.uid
+        self.value = re.search('MBO_enable_disable_WLAN_configuration_(\S+)',logical_id)
+
+        #Verification to check APs joined with the controller
+        handler.ControllerUtils.verify_wait_until_ap_registers(ctrl, [ap1.name], steps=steps)
+        
+        #Verification of the admin state of AP
+        handler.ControllerUtils.verify_change_state_of_ap(ctrl, [ap1.name], is_enable=False, steps=steps)
+        
+        #Configuring the AP mode as local
+        handler.ControllerUtils.change_ap_mode(ctrl, [ap1], mode='Local',steps=steps)
+            
+        #Verification of AP mode as local from eWLC
+        ap_mode_status = handler.ControllerUtils.validate_ap_config(ctrl, apname=ap1.name, mode='Local', rf_tag_name="default-rf-tag", return_flag=True, parentprofile=True, steps=steps)
+        if ap_mode_status:
+            logger.info("Success in configuring AP {} mode as local from ewlc {}".format(ap1.name,ctrl.name))
+        else:
+            step.failed("Failure in configuring AP {} mode as local from ewlc {}".format(ap1.name,ctrl.name),goto=['cleanup'])
+            
+        #Deleting WLANs in the Controller
+        with steps.start('WLANs deletion in the controller') as step:
+            try:
+                logger.info('Deleting WLANs in the controller')
+                result, device_config, key_error_list = param['cm'].get_config_cli(section='WLAN_Creation_WPA2_PSK_PMF_Enable',
+                                                                                                                 device_name_list=['CTRL1'],
+                                                                                                                 config_type='unconfig')
+                if result:
+                    ctrl_config = device_config['CTRL1']
+                    ctrl.configure(ctrl_config, yn=True)
+                    logger.info("Success in deleting WLANs in the controller")
+                else:
+                    step.failed("Failed to delete WLANs in the controller")
+            except Exception as e:
+                logger.error(e)
+                step.failed('Failure in deleting WLANs in the controller')
+        
+        #Clear logging in APs
+        with steps.start('Clear logging in the AP console', continue_=True) as step:
+            try:
+                if not ap1.clear_log_on_ap():
+                    step.failed("The AP {} logs could not be cleared".format(ap1.name))
+            except Exception as e:
+                logger.error(e)
+                step.failed("Failed in clear logging in the AP")
+                
+    @aetest.test
+    def do_test(self,steps,ctrl,ap1,wireless_client,wireless_sniffer,handler,config,**param):
+        
+
+        
+        if self.value.group(1) == 'Local':
+            wlan_state = 'WLAN_mapping_policy_profile_local'
+        
+        elif self.value.group(1) == 'Flex':
+            wlan_state = 'WLAN_mapping_policy_profile_flex'
+
+        #Configuring AP's channel from controller
+        ap_5ghz_channel = config['Configure_AP_Channel']['devices']['CTRL1']['AP1']['channel_5ghz']
+        if param['ap1_radio_1'] == '1':
+            ap1_radio_5ghz = '5ghz'
+        
+        handler.ControllerActions.change_ap_channel(ctrl, ap1.name, radio=ap1_radio_5ghz, channel=ap_5ghz_channel, steps=steps)
+       
+        
+        #Creating WLANs in the Controller
+        with steps.start('WLANs creation in the controller') as step:
+            try:
+                logger.info('Creating WLANs in the controller')
+                result, device_config, key_error_list = param['cm'].get_config_cli(section='WLAN_Creation_WPA2_PSK_PMF_Enable',
+                                                                                                                device_name_list=['CTRL1'],
+                                                                                                                config_type='config')
+                if result:
+                    ctrl_config = device_config['CTRL1']
+                    ctrl.configure(ctrl_config, yn=True)
+                    logger.info("Success in creating WLANs in the controller")
+                else:
+                    step.failed("Failed to create WLANs in the controller")
+            except Exception as e:
+                logger.error(e)
+                step.failed('Failure in creating WLANs in the controller')
+                
+        #Mapping WLAN to policy profile in controller to push them to AP
+        with steps.start('Mapping WLAN to policy profile in controller to push them to AP') as step:
+            try:
+                logger.info('Configuring policy profile/tag policy/site mappings in controller')
+                result, device_config, key_error_list = param['cm'].get_config_cli(section=wlan_state,
+                                                                                                                device_name_list=['CTRL1'],
+                                                                                                                config_type='config')
+                if result:
+                    ctrl_config = device_config['CTRL1']
+                    ctrl.configure(ctrl_config, yn=True)
+                    logger.info("Successful in configuring policy profile/tag policy/site mappings in controller")
+                else:
+                    step.failed("IUnsuccessful in configuring policy profile/tag policy/site mappings in controller")
+            except Exception as e:
+                logger.error(e)
+                step.failed('Failure in configuring policy profile/tag policy/site mappings in controller')
+                
+        time.sleep(40)
+        config_mbo_enable_disable = ['Enable_MBO_in_WLAN', 'Disable_MBO_in_WLAN']
+        config_states_list = ['configuring', 'unconfiguring']
+        mbo_states = ['Enabled', 'Disabled']
+        
+        for config_mbo,config_state,mbo_state in zip(config_mbo_enable_disable,config_states_list,mbo_states):
+            
+            #MBO configuration in WPA2-PSK WLAN from the controller
+            with steps.start('{} MBO in WPA2-PSK WLAN from the controller'.format(config_state)) as step:
+                try:
+                    logger.info('{} MBO in WLAN'.format(config_state))
+                    result, device_config, key_error_list = param['cm'].get_config_cli(section=config_mbo,
+                                                                                                                    device_name_list=['CTRL1'],
+                                                                                                                    config_type='config')
+                    if result:
+                        ctrl_config = device_config['CTRL1']
+                        ctrl.configure(ctrl_config, yn=True)
+                        logger.info("Successful in {} MBO in WPA2-PSK WLAN from the controller".format(config_state))
+                    else:
+                        step.failed("Unsuccessful in {} MBO in WPA2-PSK WLAN from the controller".format(config_state))
+                except Exception as e:
+                    logger.error(e)
+                    step.failed("Failure in {} MBO in WPA2-PSK WLAN from the controller".format(config_state))
+                    
+            wlan_id = config['WLAN_Creation_WPA2_PSK_PMF_Enable']['devices']['CTRL1']['WLANS']['WLAN1']['wlanId']
+            
+            #Verifying the MBO status in WLAN
+            handler.ControllerUtils.validate_wlan_params_show_wlan_id(ctrl, wlan_id=wlan_id, mbo_state=mbo_state, steps=steps)
+                
+            
+            #Creating packet capture file in tshark
+            with steps.start('Creating the packet capture file',continue_=False) as step:
+                try:
+                    logger.info('Creating file name for packet capture.')
+                    now = datetime.now()
+                    cap_file = param['wireless_sniffer_pcap_file'] + ("_{Day}_{Month}_{Year}_{Hr}_{Min}_{Seconds}" .format(Day=now.day,
+                            Month=now.month,
+                            Year=now.year,
+                            Hr=now.hour,
+                            Min=now.minute,
+                            Seconds=now.second))
+                    self.cap_file_name = cap_file
+                    logger.info('Capture packet file name is created : {}.'.format(self.cap_file_name))
+                    self.capture_file = self.cap_file_name + ".pcap"
+    
+                except Exception as e:
+                    logger.error(e)
+            
+            #Setting the channel in tshark for capturing packets
+            handler.ClientActions.config_channel_mac(client=wireless_sniffer, channel=ap_5ghz_channel, steps = steps)
+
+    
+            #Starting the wireless packet capture in sniffer
+            logger.info("Starting the wireless packet capture before client association")
+
+            handler.ClientActions.start_capture_mac(client=wireless_sniffer,intf_name=param['wireless_sniffer_interface_name'],file_name=self.cap_file_name, steps = steps)
+            logger.info("Successfully started the wireless packet capture before client association")
+        
+            
+            wlan_name = config['WLAN_Creation_WPA2_PSK_PMF_Enable']['devices']['CTRL1']['WLANS']['WLAN1']['wlanName']
+            psk_key = config['WLAN_Creation_WPA2_PSK_PMF_Enable']['devices']['CTRL1']['WLANS']['WLAN1']['auth']['key']
+            
+            #Client association in WPA2-PSK MBO enabled WLAN
+            with steps.start('Configuring wireless client as WPA2 psk'
+                            'client(' + 'client' + ')', continue_=True) as step:
+                func_args={'interface_name': param['wireless_client_interface_name'], 'ssid': wlan_name, 'auth_type': 'WPA2_PSK',
+                        'retry_count': 1,'xml_path' : param['wireless_client_ssc_location'], 'psk_key' : psk_key, 'filename' : 'Wireless_Network_Config.xml'}
+                try:
+                    client_stats = wireless_client.associate_to_ssid_using_netsh(**func_args)
+                    if client_stats['status'] == True:
+                        logger.info('Client connected to psk ssid')
+                    else:
+                        self.failed('Client not connected to psk ssid')
+                    client_wireless_ip = client_stats['ipv4']
+                    logger.info('client received ip address')
+                    logger.info(client_wireless_ip)
+    
+                except Exception as e:
+                    logger.error(traceback.format_exc())
+                    logger.error(e)
+                    
+            time.sleep(10)
+            #Stopping the wireless packet capture in sniffer
+            logger.info("Stopping packet capture after client association")
+            handler.ClientActions.stop_capture_mac(client=wireless_sniffer, steps = steps)
+            logger.info("successfully stopped the packet capture after client association")
+
+            #Processing the packet capture to verify that MBO specific IE elements are seen in association response
+            with steps.start('Verifying the MBO specific IE elements in the association response',continue_=True) as step:
+                try:
+    
+                            
+                    tshark_filter = "(wlan.fc.type_subtype == 1) && frame contains dd:07:50:6f:9a:16:01"
+                    tshark_output=handler.ClientActions.process_pcap_mac(wireless_sniffer,tshark_filter,self.cap_file_name,steps = steps)
+                    print (tshark_output)
+                    if (tshark_output != None):
+                        if (tshark_output == False):
+                            step.failed('Failed to retrive the capture filter output')
+                        else:
+                            if (mbo_state == 'Enabled'):
+                                if int(tshark_output) > 0:
+                                    logger.info('MBO IE elements is present in association response as MBO is enabled in WLAN and pkt_count is :'+str(tshark_output))
+                                else:
+                                    step.failed('MBO IE elements NOT present in association response, eventhough MBO is enabled in WLAN and pkt_count is '+str(tshark_output))
+                            else:
+                                if int(tshark_output) == 0:
+                                    logger.info('MBO IE elements is absent in association response as MBO is disabled in WLAN and pkt_count is :'+str(tshark_output))
+                                else:
+                                    step.failed('MBO IE elements NOT absent in association response, eventhough MBO is disabled in WLAN and pkt_count is '+str(tshark_output))
+                            
+                            
+                except Exception as e:
+                    logger.error(e)
+                    step.failed("Failure in verifying the MBO specific IE elements in the association response")
+                    
+                   
+    @aetest.cleanup
+    def do_cleanup(self,steps,ctrl,ap1,handler,**param):
+        
+
+
+        #Enabling all the AP1 in WLC
+        handler.ControllerUtils.verify_change_state_of_ap(ctrl, [ap1.name], is_enable=True, steps=steps)
+        
+        
