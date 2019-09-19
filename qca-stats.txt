@@ -1,0 +1,527 @@
+SJC22-31A-AP9#configure ap client-trace
+  address      Configure Clients to trace
+  all-clients  Trace ALL Clients
+  clear        Clear Client Trace event log
+  counter      Configure Trace counters
+  filter       Set Filters for Client Trace
+  output       Configure Trace Output
+  start        Start Client Trace
+  stop         Stop Client Trace
+SJC22-31A-AP9#configure ap client-trace address
+  add     Add Client address to trace
+  clear   Delete ALL Client addresses being traced
+  delete  Delete Client address being traced
+SJC22-31A-AP9#configure ap client-trace address add
+  WORD  <mac-addr1>
+SJC22-31A-AP9#configure ap client-trace address add 10:98:c3:9c:60:07
+SJC22-31A-AP9#
+SJC22-31A-AP9#configure ap client-trace output console-log enable
+SJC22-31A-AP9#
+SJC22-31A-AP9#show ap client-
+client-statistics  client-trace
+SJC22-31A-AP9#show ap client-trace status
+Client Trace Status         : Started
+
+Client Trace ALL Clients    : disable
+
+Client Trace Address        : 10:98:c3:9c:60:07
+
+Remote/Dump Client Trace Address    : none
+
+Client Trace Filter         : auth
+Client Trace Filter         : assoc
+Client Trace Filter         : eap
+
+Client Trace Output         : eventbuf
+Client Trace Output         : console-log
+
+Client Trace Inline Monitor            : disable
+Client Trace Inline Monitor pkt-attach : disable
+
+SJC22-31A-AP9#configure ap client-trace filter all enable
+SJC22-31A-AP9#show ap client-trace status
+Client Trace Status         : Started
+
+Client Trace ALL Clients    : disable
+
+Client Trace Address        : 10:98:c3:9c:60:07
+
+Remote/Dump Client Trace Address    : none
+
+Client Trace Filter         : probe
+Client Trace Filter         : auth
+Client Trace Filter         : assoc
+Client Trace Filter         : eap
+Client Trace Filter         : dhcp
+Client Trace Filter         : dhcpv6
+Client Trace Filter         : icmp
+Client Trace Filter         : icmpv6
+Client Trace Filter         : ndp
+Client Trace Filter         : arp
+
+Client Trace Output         : eventbuf
+Client Trace Output         : console-log
+
+Client Trace Inline Monitor            : disable
+Client Trace Inline Monitor pkt-attach : disable
+
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#terminal monitor
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#BEFORE ROAMING
+              ^
+% Invalid input detected at '^' marker.
+SJC22-31A-AP9#
+SJC22-31A-AP9#
+SJC22-31A-AP9#dev
+EXITING CISCO SHELL. PLEASE EXECUTE EXIT IN DEVSHELL TO GET BACK TO CISCO SHELL.
+
+
+
+BusyBox v1.29.3 () built-in shell (ash)
+
+Welcome to Cisco.
+
+Usage of this device is governed by Cisco's End User License Agreement,
+available at:
+http://www.cisco.com/c/en/us/td/docs/general/warranty/English/EU1KEN_.html.
+SJC22-31A-AP9:/alpha# wifistats wifi1 8
+HTT_TX_DE_CMN_STATS_TLV:
+mac_id = 0
+tcl2fw_entry_count = 4789
+not_to_fw = 0
+invalid_pdev_vdev_peer = 0
+tcl_res_invalid_addrx = 3
+wbm2fw_entry_count = 0
+invalid_pdev = 0
+tcl_res_addrx_timeout = 0
+invalid_vdev = 0
+invalid_tcl_exp_frame_desc = 0
+
+HTT_TX_DE_EAPOL_PACKETS_STATS_TLV:
+m1_packets = 88
+m2_packets = 0
+m3_packets = 97
+m4_packets = 0
+g1_packets = 2
+g2_packets = 0
+rc4_packets = 0
+eap_packets = 1391
+eapol_start_packets = 0
+eapol_logoff_packets = 0
+eapol_encap_asf_packets = 0
+
+HTT_TX_DE_CLASSIFY_STATS_TLV:
+arp_packets = 494
+igmp_packets = 0
+dhcp_packets = 182
+host_inspected = 0
+htt_included = 0
+htt_valid_mcs = 0
+htt_valid_nss = 0
+htt_valid_preamble_type = 0
+htt_valid_chainmask = 0
+htt_valid_guard_interval = 0
+htt_valid_retries = 0
+htt_valid_bw_info = 0
+htt_valid_power = 0
+htt_valid_key_flags = 0x0
+htt_valid_no_encryption = 0
+fse_entry_count = 0
+fse_priority_be = 0
+fse_priority_high = 0
+fse_priority_low = 0
+fse_traffic_ptrn_be = 0
+fse_traffic_ptrn_over_sub = 0
+fse_traffic_ptrn_bursty = 0
+fse_traffic_ptrn_interactive = 0
+fse_traffic_ptrn_periodic = 0
+fse_hwqueue_alloc = 0
+fse_hwqueue_created = 0
+fse_hwqueue_send_to_host = 0
+mcast_entry = 1822
+bcast_entry = 853
+htt_update_peer_cache = 0
+htt_learning_frame = 0
+fse_invalid_peer = 0
+mec_notify = 0
+
+HTT_TX_DE_CLASSIFY_FAILED_STATS_TLV:
+ap_bss_peer_not_found = 0
+ap_bcast_mcast_no_peer = 1
+sta_delete_in_progress = 0
+ibss_no_bss_peer = 0
+invaild_vdev_type = 0
+invalid_ast_peer_entry = 0
+peer_entry_invalid = 0
+ethertype_not_ip = 3
+eapol_lookup_failed = 0
+qpeer_not_allow_data = 0
+fse_tid_override = 0
+ipv6_jumbogram_zero_length = 0
+qos_to_non_qos_in_prog = 0
+ap_bcast_mcast_eapol = 0
+unicast_on_ap_bss_peer = 0
+ap_vdev_invalid = 0
+incomplete_llc = 0
+eapol_duplicate_m3 = 0
+eapol_duplicate_m4 = 0
+
+HTT_TX_DE_CLASSIFY_STATUS_STATS_TLV:
+eok = 0
+classify_done = 4785
+lookup_failed = 4
+send_host_dhcp = 0
+send_host_mcast = 0
+send_host_unknown_dest = 0
+send_host = 0
+status_invalid = 0
+
+HTT_TX_DE_ENQUEUE_PACKETS_STATS_TLV:
+enqueued_pkts = 3432140
+to_tqm = 2111
+to_tqm_bypass = 3430029
+
+HTT_TX_DE_ENQUEUE_DISCARD_STATS_TLV:
+discarded_pkts = 4
+local_frames = 0
+is_ext_msdu = 0
+
+HTT_TX_DE_COMPL_STATS_TLV:
+tcl_dummy_frame = 165
+tqm_dummy_frame = 165
+tqm_notify_frame = 85
+fw2wbm_enq = 2678
+tqm_bypass_frame = 2674
+
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha# Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5357] [1565740599:535717] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5358] [1565740599:535828] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5560] [1565740599:555990] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5561] [1565740599:556097] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5762] [1565740599:576263] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5763] [1565740599:576377] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5965] [1565740599:596575] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.5966] [1565740599:596684] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6168] [1565740599:616867] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6169] [1565740599:616967] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6371] [1565740599:637175] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6372] [1565740599:637287] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6575] [1565740599:657493] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6576] [1565740599:657598] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6777] [1565740599:677717] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6778] [1565740599:677819] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6980] [1565740599:698039] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.6981] [1565740599:698142] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7183] [1565740599:718356] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7184] [1565740599:718463] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7386] [1565740599:738640] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7387] [1565740599:738740] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7589] [1565740599:758953] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7590] [1565740599:759060] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7792] [1565740599:779191] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7792] [1565740599:779289] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7995] [1565740599:799530] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.7996] [1565740599:799636] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.8198] [1565740599:819832] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.8199] [1565740599:819932] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.8405] [1565740599:840550] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:39 kernel: [*08/13/2019 23:56:39.8406] [1565740599:840656] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:43 kernel: [*08/13/2019 23:56:43.7343] [1565740603:734341] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:43 kernel: [*08/13/2019 23:56:43.7344] [1565740603:734452] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:43 kernel: [*08/13/2019 23:56:43.7546] [1565740603:754599] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:43 kernel: [*08/13/2019 23:56:43.7547] [1565740603:754705] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5167] [1565740611:516772] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5168] [1565740611:516883] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5169] [1565740611:516990] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5173] [1565740611:517357] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5373] [1565740611:537306] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5374] [1565740611:537411] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5375] [1565740611:537512] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:56:51 kernel: [*08/13/2019 23:56:51.5378] [1565740611:537823] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.3167] [1565740624:316781] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.3168] [1565740624:316889] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.3370] [1565740624:337083] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.3371] [1565740624:337191] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.9756] [1565740624:975655] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_AUTHENTICATION : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.9761] [1565740624:976147] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_AUTHENTICATION : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.9799] [1565740624:979958] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_REASSOC_REQUEST : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.9824] [1565740624:982442] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_REASSOC_RESPONSE : (.)
+Aug 13 23:57:04 kernel: [*08/13/2019 23:57:04.9858] [1565740624:985864] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAPOL_KEY.M1 : DescType 0x02 KeyInfo 0x008a
+Aug 13 23:57:05 kernel: [*08/13/2019 23:57:05.1477] [1565740625:147703] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] EAPOL_KEY.M2 : DescType 0x02 KeyInfo 0x010a
+Aug 13 23:57:05 kernel: [*08/13/2019 23:57:05.1484] [1565740625:148418] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAPOL_KEY.M3 : DescType 0x02 KeyInfo 0x13ca
+Aug 13 23:57:05 kernel: [*08/13/2019 23:57:05.1543] [1565740625:154380] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_DISASSOC : (.)
+Aug 13 23:57:06 kernel: [*08/13/2019 23:57:06.1488] [1565740626:148809] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAPOL_KEY.M3 : DescType 0x02 KeyInfo 0x13ca
+Aug 13 23:57:07 kernel: [*08/13/2019 23:57:07.1488] [1565740627:148829] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAPOL_KEY.M3 : DescType 0x02 KeyInfo 0x13ca
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.1507] [1565740628:150723] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_DISASSOC : (.)
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.1513] [1565740628:151349] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_DEAUTHENTICATION : (.)
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.4414] [1565740628:441462] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_AUTHENTICATION : (.)
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.4419] [1565740628:441906] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_AUTHENTICATION : (.)
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.4436] [1565740628:443646] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_ASSOC_REQUEST : (.)
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.4520] [1565740628:452036] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_ASSOC_RESPONSE : (.)
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.4559] [1565740628:455900] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAP_PACKET.Request : Id 0x01 type 1 Identity
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.5433] [1565740628:543386] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAP_PACKET.Request : Id 0xde type 25 Other
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.5481] [1565740628:548159] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] EAP_PACKET.Response : Id 0xde type 25 Other
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.5556] [1565740628:555625] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAP_PACKET.Request : Id 0xdf type 25 Other
+Aug 13 23:57:08 kernel: [*08/13/2019 23:57:08.5636] [1565740628:563672] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] EAP_PACKET.Request : Id 0xe0 type 25 Other
+tail: /var/log/messages has been replaced; following end of new file
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.2881] [1565740629:288182] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ARP_QUERY : Sender 10.41.172.49 TargIp 10.41.172.1
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.2882] [1565740629:288217] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ARP_QUERY : Sender 10.41.172.49 TargIp 10.41.172.1
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.2893] [1565740629:289368] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ARP_REPLY : Sender 10.41.172.1 HwAddr 00:00:0c:9f:f4:5c
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.2894] [1565740629:289471] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ARP_REPLY : Sender 10.41.172.1 HwAddr 00:00:0c:9f:f4:5c
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.2895] [1565740629:289513] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ARP_REPLY : Sender 10.41.172.1 HwAddr 00:00:0c:9f:f4:5c
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.4892] [1565740629:489269] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ARP_QUERY : Sender 10.41.172.49 TargIp 10.41.172.1
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.4893] [1565740629:489311] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ARP_QUERY : Sender 10.41.172.49 TargIp 10.41.172.1
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.4904] [1565740629:490455] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ARP_REPLY : Sender 10.41.172.1 HwAddr 00:00:0c:9f:f4:5c
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.4905] [1565740629:490525] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ARP_REPLY : Sender 10.41.172.1 HwAddr 00:00:0c:9f:f4:5c
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.4905] [1565740629:490556] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ARP_REPLY : Sender 10.41.172.1 HwAddr 00:00:0c:9f:f4:5c
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.6034] [1565740629:603450] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 22534 Seq 2
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.6034] [1565740629:603484] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 22534 Seq 2
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.8624] [1565740629:862463] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMPV6_RS : Src ff02:0:0:0:0:0:0:2 Dst ff02:0:0:0:0:0:0:2
+Aug 13 23:57:09 kernel: [*08/13/2019 23:57:09.8626] [1565740629:862636] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMPV6_RS : Src ff02:0:0:0:0:0:0:2 Dst ff02:0:0:0:0:0:0:2
+Aug 13 23:57:11 kernel: [*08/13/2019 23:57:11.9363] [1565740631:936352] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 13 Seq 17
+Aug 13 23:57:11 kernel: [*08/13/2019 23:57:11.9363] [1565740631:936385] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 13 Seq 17
+Aug 13 23:57:11 kernel: [*08/13/2019 23:57:11.9377] [1565740631:937722] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 17
+Aug 13 23:57:11 kernel: [*08/13/2019 23:57:11.9377] [1565740631:937783] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 17
+Aug 13 23:57:11 kernel: [*08/13/2019 23:57:11.9378] [1565740631:937808] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 13 Seq 17
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.0855] [1565740632: 85580] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16220
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.0856] [1565740632: 85633] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16220
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.0866] [1565740632: 86665] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16220
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.0866] [1565740632: 86689] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16220
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.0867] [1565740632: 86707] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16220
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9430] [1565740632:943014] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 13 Seq 18
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9431] [1565740632:943133] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 13 Seq 18
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9442] [1565740632:944216] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 18
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9442] [1565740632:944274] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 18
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9443] [1565740632:944302] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 13 Seq 18
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9473] [1565740632:947320] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9474] [1565740632:947431] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9478] [1565740632:947894] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9479] [1565740632:947947] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9678] [1565740632:967805] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9679] [1565740632:967906] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] DOT11_PROBE_RESPONSE : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9683] [1565740632:968353] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:12 kernel: [*08/13/2019 23:57:12.9684] [1565740632:968412] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_PROBE_REQUEST : (.)
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.1245] [1565740633:124545] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16221
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.1245] [1565740633:124583] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16221
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.1257] [1565740633:125737] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16221
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.1258] [1565740633:125801] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16221
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.1258] [1565740633:125829] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16221
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.8548] [1565740633:854844] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMPV6_RS : Src ff02:0:0:0:0:0:0:2 Dst ff02:0:0:0:0:0:0:2
+Aug 13 23:57:13 kernel: [*08/13/2019 23:57:13.8548] [1565740633:854880] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMPV6_RS : Src ff02:0:0:0:0:0:0:2 Dst ff02:0:0:0:0:0:0:2
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.0309] [1565740634: 30911] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 13 Seq 19
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.0309] [1565740634: 30948] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 13 Seq 19
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.0322] [1565740634: 32284] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 19
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.0323] [1565740634: 32346] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 19
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.0323] [1565740634: 32374] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 13 Seq 19
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.1369] [1565740634:136963] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16222
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.1370] [1565740634:136998] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16222
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.1383] [1565740634:138366] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16222
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.1384] [1565740634:138431] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16222
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.1384] [1565740634:138462] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16222
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.9499] [1565740634:949921] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 13 Seq 20
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.9499] [1565740634:949955] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 13 Seq 20
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.9510] [1565740634:951084] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 20
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.9511] [1565740634:951152] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 13 Seq 20
+Aug 13 23:57:14 kernel: [*08/13/2019 23:57:14.9511] [1565740634:951181] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 13 Seq 20
+Aug 13 23:57:15 kernel: [*08/13/2019 23:57:15.1383] [1565740635:138312] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16223
+Aug 13 23:57:15 kernel: [*08/13/2019 23:57:15.1383] [1565740635:138347] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16223
+Aug 13 23:57:15 kernel: [*08/13/2019 23:57:15.1399] [1565740635:139963] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16223
+Aug 13 23:57:15 kernel: [*08/13/2019 23:57:15.1400] [1565740635:140045] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16223
+Aug 13 23:57:15 kernel: [*08/13/2019 23:57:15.1400] [1565740635:140081] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16223
+Aug 13 23:57:16 kernel: [*08/13/2019 23:57:16.0914] [1565740636: 91444] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16224
+Aug 13 23:57:16 kernel: [*08/13/2019 23:57:16.0914] [1565740636: 91478] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16224
+Aug 13 23:57:16 kernel: [*08/13/2019 23:57:16.0927] [1565740636: 92711] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16224
+Aug 13 23:57:16 kernel: [*08/13/2019 23:57:16.0927] [1565740636: 92774] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16224
+Aug 13 23:57:16 kernel: [*08/13/2019 23:57:16.0928] [1565740636: 92805] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16224
+Aug 13 23:57:17 kernel: [*08/13/2019 23:57:17.0993] [1565740637: 99351] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16225
+Aug 13 23:57:17 kernel: [*08/13/2019 23:57:17.0993] [1565740637: 99388] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16225
+Aug 13 23:57:17 kernel: [*08/13/2019 23:57:17.1006] [1565740637:100603] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16225
+Aug 13 23:57:17 kernel: [*08/13/2019 23:57:17.1006] [1565740637:100667] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16225
+Aug 13 23:57:17 kernel: [*08/13/2019 23:57:17.1007] [1565740637:100698] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16225
+Aug 13 23:57:18 kernel: [*08/13/2019 23:57:18.1008] [1565740638:100792] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16226
+Aug 13 23:57:18 kernel: [*08/13/2019 23:57:18.1008] [1565740638:100830] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16226
+Aug 13 23:57:18 kernel: [*08/13/2019 23:57:18.1029] [1565740638:102900] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16226
+Aug 13 23:57:18 kernel: [*08/13/2019 23:57:18.1029] [1565740638:102962] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16226
+Aug 13 23:57:18 kernel: [*08/13/2019 23:57:18.1029] [1565740638:102993] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16226
+Aug 13 23:57:19 kernel: [*08/13/2019 23:57:19.0990] [1565740639: 99060] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16227
+Aug 13 23:57:19 kernel: [*08/13/2019 23:57:19.0991] [1565740639: 99113] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16227
+Aug 13 23:57:19 kernel: [*08/13/2019 23:57:19.1004] [1565740639:100475] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16227
+Aug 13 23:57:19 kernel: [*08/13/2019 23:57:19.1005] [1565740639:100545] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16227
+Aug 13 23:57:19 kernel: [*08/13/2019 23:57:19.1005] [1565740639:100574] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16227
+Aug 13 23:57:20 kernel: [*08/13/2019 23:57:20.1078] [1565740640:107790] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16228
+Aug 13 23:57:20 kernel: [*08/13/2019 23:57:20.1078] [1565740640:107825] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16228
+Aug 13 23:57:20 kernel: [*08/13/2019 23:57:20.1090] [1565740640:109063] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16228
+Aug 13 23:57:20 kernel: [*08/13/2019 23:57:20.1091] [1565740640:109151] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16228
+Aug 13 23:57:20 kernel: [*08/13/2019 23:57:20.1091] [1565740640:109185] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16228
+Aug 13 23:57:21 kernel: [*08/13/2019 23:57:21.1073] [1565740641:107345] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16229
+Aug 13 23:57:21 kernel: [*08/13/2019 23:57:21.1073] [1565740641:107382] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16229
+Aug 13 23:57:21 kernel: [*08/13/2019 23:57:21.1085] [1565740641:108571] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16229
+Aug 13 23:57:21 kernel: [*08/13/2019 23:57:21.1086] [1565740641:108636] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16229
+Aug 13 23:57:21 kernel: [*08/13/2019 23:57:21.1086] [1565740641:108666] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16229
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1013] [1565740642:101387] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMPV6_RS : Src ff02:0:0:0:0:0:0:2 Dst ff02:0:0:0:0:0:0:2
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1014] [1565740642:101428] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMPV6_RS : Src ff02:0:0:0:0:0:0:2 Dst ff02:0:0:0:0:0:0:2
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1040] [1565740642:104039] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16230
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1040] [1565740642:104059] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16230
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1054] [1565740642:105411] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16230
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1054] [1565740642:105454] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16230
+Aug 13 23:57:22 kernel: [*08/13/2019 23:57:22.1054] [1565740642:105473] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16230
+Aug 13 23:57:23 kernel: [*08/13/2019 23:57:23.1122] [1565740643:112264] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16231
+Aug 13 23:57:23 kernel: [*08/13/2019 23:57:23.1123] [1565740643:112298] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16231
+Aug 13 23:57:23 kernel: [*08/13/2019 23:57:23.1135] [1565740643:113587] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16231
+Aug 13 23:57:23 kernel: [*08/13/2019 23:57:23.1136] [1565740643:113659] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16231
+Aug 13 23:57:23 kernel: [*08/13/2019 23:57:23.1136] [1565740643:113688] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16231
+Aug 13 23:57:24 kernel: [*08/13/2019 23:57:24.1140] [1565740644:114066] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16232
+Aug 13 23:57:24 kernel: [*08/13/2019 23:57:24.1141] [1565740644:114099] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16232
+Aug 13 23:57:24 kernel: [*08/13/2019 23:57:24.1152] [1565740644:115260] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16232
+Aug 13 23:57:24 kernel: [*08/13/2019 23:57:24.1153] [1565740644:115325] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16232
+Aug 13 23:57:24 kernel: [*08/13/2019 23:57:24.1153] [1565740644:115353] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16232
+Aug 13 23:57:25 kernel: [*08/13/2019 23:57:25.1123] [1565740645:112386] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16233
+Aug 13 23:57:25 kernel: [*08/13/2019 23:57:25.1124] [1565740645:112420] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16233
+Aug 13 23:57:25 kernel: [*08/13/2019 23:57:25.1137] [1565740645:113704] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16233
+Aug 13 23:57:25 kernel: [*08/13/2019 23:57:25.1137] [1565740645:113765] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16233
+Aug 13 23:57:25 kernel: [*08/13/2019 23:57:25.1137] [1565740645:113794] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16233
+Aug 13 23:57:26 kernel: [*08/13/2019 23:57:26.1192] [1565740646:119280] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16234
+Aug 13 23:57:26 kernel: [*08/13/2019 23:57:26.1193] [1565740646:119312] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16234
+Aug 13 23:57:26 kernel: [*08/13/2019 23:57:26.1207] [1565740646:120729] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16234
+Aug 13 23:57:26 kernel: [*08/13/2019 23:57:26.1208] [1565740646:120802] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16234
+Aug 13 23:57:26 kernel: [*08/13/2019 23:57:26.1208] [1565740646:120833] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16234
+Aug 13 23:57:27 kernel: [*08/13/2019 23:57:27.1195] [1565740647:119532] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] ICMP_ECHO : Id 7 Seq 16235
+Aug 13 23:57:27 kernel: [*08/13/2019 23:57:27.1195] [1565740647:119563] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:C] ICMP_ECHO : Id 7 Seq 16235
+Aug 13 23:57:27 kernel: [*08/13/2019 23:57:27.1209] [1565740647:120921] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16235
+Aug 13 23:57:27 kernel: [*08/13/2019 23:57:27.1209] [1565740647:120987] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <wired0> [D:C] ICMP_ECHO_REPLY : Id 7 Seq 16235
+Aug 13 23:57:27 kernel: [*08/13/2019 23:57:27.1210] [1565740647:121015] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [D:W] ICMP_ECHO_REPLY : Id 7 Seq 16235
+Aug 13 23:57:27 kernel: [*08/13/2019 23:57:27.7016] [1565740647:701603] [AP04EB.409E.117C] [10:98:c3:9c:60:07] <apr1v0> [U:W] DOT11_DISASSOC : (.)
+
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha# AFTER ROAM
+ash: AFTER: not found
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha# wifistats wifi1 8
+HTT_TX_DE_CMN_STATS_TLV:
+mac_id = 0
+tcl2fw_entry_count = 4829
+not_to_fw = 0
+invalid_pdev_vdev_peer = 0
+tcl_res_invalid_addrx = 3
+wbm2fw_entry_count = 0
+invalid_pdev = 0
+tcl_res_addrx_timeout = 0
+invalid_vdev = 0
+invalid_tcl_exp_frame_desc = 0
+
+HTT_TX_DE_EAPOL_PACKETS_STATS_TLV:
+m1_packets = 90
+m2_packets = 0
+m3_packets = 101
+m4_packets = 0
+g1_packets = 2
+g2_packets = 0
+rc4_packets = 0
+eap_packets = 1405
+eapol_start_packets = 0
+eapol_logoff_packets = 0
+eapol_encap_asf_packets = 0
+
+HTT_TX_DE_CLASSIFY_STATS_TLV:
+arp_packets = 498
+igmp_packets = 0
+dhcp_packets = 184
+host_inspected = 0
+htt_included = 0
+htt_valid_mcs = 0
+htt_valid_nss = 0
+htt_valid_preamble_type = 0
+htt_valid_chainmask = 0
+htt_valid_guard_interval = 0
+htt_valid_retries = 0
+htt_valid_bw_info = 0
+htt_valid_power = 0
+htt_valid_key_flags = 0x0
+htt_valid_no_encryption = 0
+fse_entry_count = 0
+fse_priority_be = 0
+fse_priority_high = 0
+fse_priority_low = 0
+fse_traffic_ptrn_be = 0
+fse_traffic_ptrn_over_sub = 0
+fse_traffic_ptrn_bursty = 0
+fse_traffic_ptrn_interactive = 0
+fse_traffic_ptrn_periodic = 0
+fse_hwqueue_alloc = 0
+fse_hwqueue_created = 0
+fse_hwqueue_send_to_host = 0
+mcast_entry = 1830
+bcast_entry = 860
+htt_update_peer_cache = 0
+htt_learning_frame = 0
+fse_invalid_peer = 0
+mec_notify = 0
+
+HTT_TX_DE_CLASSIFY_FAILED_STATS_TLV:
+ap_bss_peer_not_found = 0
+ap_bcast_mcast_no_peer = 1
+sta_delete_in_progress = 0
+ibss_no_bss_peer = 0
+invaild_vdev_type = 0
+invalid_ast_peer_entry = 0
+peer_entry_invalid = 0
+ethertype_not_ip = 3
+eapol_lookup_failed = 0
+qpeer_not_allow_data = 0
+fse_tid_override = 0
+ipv6_jumbogram_zero_length = 0
+qos_to_non_qos_in_prog = 0
+ap_bcast_mcast_eapol = 0
+unicast_on_ap_bss_peer = 0
+ap_vdev_invalid = 0
+incomplete_llc = 0
+eapol_duplicate_m3 = 0
+eapol_duplicate_m4 = 0
+
+HTT_TX_DE_CLASSIFY_STATUS_STATS_TLV:
+eok = 0
+classify_done = 4825
+lookup_failed = 4
+send_host_dhcp = 0
+send_host_mcast = 0
+send_host_unknown_dest = 0
+send_host = 0
+status_invalid = 0
+
+HTT_TX_DE_ENQUEUE_PACKETS_STATS_TLV:
+enqueued_pkts = 3433085
+to_tqm = 2136
+to_tqm_bypass = 3430949
+
+HTT_TX_DE_ENQUEUE_DISCARD_STATS_TLV:
+discarded_pkts = 4
+local_frames = 0
+is_ext_msdu = 0
+
+HTT_TX_DE_COMPL_STATS_TLV:
+tcl_dummy_frame = 166
+tqm_dummy_frame = 166
+tqm_notify_frame = 105
+fw2wbm_enq = 2693
+tqm_bypass_frame = 2689
+
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
+SJC22-31A-AP9:/alpha#
